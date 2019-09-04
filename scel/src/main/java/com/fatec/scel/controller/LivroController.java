@@ -92,7 +92,7 @@ public class LivroController {
 
 	@PostMapping("/update/{id}")
 	public ModelAndView atualiza(@PathVariable("id") Long id, @Valid Livro livro, BindingResult result) {
-		System.out.println("metodo atualiza chamado.........................");
+	
 		if (result.hasErrors()) {
 			livro.setId(id);
 			return new ModelAndView("AtualizaLivro");
