@@ -3,15 +3,14 @@ package com.fatec.scel.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,7 +18,7 @@ import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.LivroRepository;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping(path = "/livros")
 public class LivroController {
 //insert into livro values ('1', 'Pressman','aaaa', 'engenharia')
 	@Autowired
@@ -38,7 +37,7 @@ public class LivroController {
 	 * @param livro
 	 * @return o html /CadastraLivro
 	 */
-	@GetMapping("/add")
+	@GetMapping("/cadastrar")
 	public ModelAndView cadastraLivro(Livro livro) {
 
 		ModelAndView mv = new ModelAndView("CadastrarLivro");
