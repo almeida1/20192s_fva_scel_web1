@@ -1,6 +1,7 @@
 package com.fatec.scel.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Emprestimo {
@@ -8,27 +9,25 @@ public class Emprestimo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name="isbn", nullable = false, length=4)
+	@NotEmpty(message="O isbn deve ser preenchido")
 	private String isbn;
-	@Column(name="usuario", nullable = false, length=40)
-	private String usuario;
-	@Column(name="dataEmprestimo", nullable = false)
+	@Column(name="ra", nullable = false, length=4)
+	private String ra;
+	
 	private String dataEmprestimo;
-	@Column(name="dataDevolucao", nullable = false)
+	
 	private String dataDevolucao;
-	@Column(name="dataDevolucaoPrevista", nullable = false)
+
 	private String dataDevolucaoPrevista;
 	
 	public Emprestimo() {
 		
 	}
-	public Emprestimo(String isbn, String usuario, String dataEmprestimo, String dataDevolucao,
-			String dataDevolucaoPrevista) {
+	public Emprestimo(String isbn, String ra) {
 		super();
 		this.isbn = isbn;
-		this.usuario = usuario;
-		this.dataEmprestimo = dataEmprestimo;
-		this.dataDevolucao = dataDevolucao;
-		this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+		this.ra = ra;
+		
 	}
 	public String getIsbn() {
 		return isbn;
@@ -36,11 +35,11 @@ public class Emprestimo {
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-	public String getUsuario() {
-		return usuario;
+	public String getRa() {
+		return ra;
 	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setRa(String ra) {
+		this.ra = ra;
 	}
 	public String getDataEmprestimo() {
 		return dataEmprestimo;
