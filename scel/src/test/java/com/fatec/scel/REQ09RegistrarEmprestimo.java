@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fatec.scel.model.Emprestimo;
 import com.fatec.scel.model.EmprestimoRepository;
-import com.fatec.scel.model.ServicoEmprestimo;
+import com.fatec.scel.model.Servico;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest //suporte do h2
@@ -31,19 +31,13 @@ public class REQ09RegistrarEmprestimo {
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 
-	private ServicoEmprestimo servicoEmprestimo;
-	Emprestimo emprestimo;
-
-	@Before
-	public void start() {
-		servicoEmprestimo = new ServicoEmprestimo();
-	}
+	
 
 	@Test
 	public void CT01_saveComDadosNuloDeveLancarException() throws Exception {
 		try {
-
-		servicoEmprestimo.empresta(null, null);
+			Emprestimo emprestimo = new Emprestimo(null, null);
+			
 		}catch(Exception e) {
 			assertEquals("Dados inválidos.",e.getMessage());
 		}
@@ -53,13 +47,15 @@ public class REQ09RegistrarEmprestimo {
 	public void CT02_saveComSucessoNotNull() throws Exception {
 		
         Emprestimo emprestimo=null;
-		emprestimo = servicoEmprestimo.empresta("1111", "aaaa");
+        emprestimo = new Emprestimo("1111","aaaa");
+		emprestimo = emprestimoRepository.save(emprestimo);
    		assertNotNull(emprestimo);
 	}
 	@Test
 	public void CT03_saveConsultaComSucesso() throws Exception {
-		Emprestimo emprestimo= servicoEmprestimo.empresta("1111", "aaaa");
-		emprestimoRepository.save(emprestimo);
+		Emprestimo emprestimo=null;
+        emprestimo = new Emprestimo("1111","aaaa");
+		emprestimo = emprestimoRepository.save(emprestimo);
 		List<Emprestimo> emprestimos = (List<Emprestimo>) emprestimoRepository.findAll();
 		Assert.assertEquals(1, emprestimos.size());
 		emprestimoRepository.deleteAll();
@@ -67,8 +63,9 @@ public class REQ09RegistrarEmprestimo {
 	
 	@Test
 	public void CT04_saveConsultaComSucesso() throws Exception {
-		Emprestimo emprestimo= servicoEmprestimo.empresta("1111", "aaaa");
-		emprestimoRepository.save(emprestimo);
+		Emprestimo emprestimo=null;
+        emprestimo = new Emprestimo("1111","aaaa");
+		emprestimo = emprestimoRepository.save(emprestimo);
 		List<Emprestimo> emprestimos = (List<Emprestimo>) emprestimoRepository.findAll();
 		Assert.assertEquals(1, emprestimos.size());
 		System.out.println(emprestimo.toString());

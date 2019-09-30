@@ -17,7 +17,8 @@ public class Usuario {
 	String ra;
 	String nome;
 	String email;
-
+    public Usuario() {
+    }
 	public Usuario(String ra, String nome, String email) {
 		super();
 		this.ra = ra;

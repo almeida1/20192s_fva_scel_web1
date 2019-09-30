@@ -16,9 +16,10 @@ public class Emprestimo {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(name="isbn", nullable = false, length=4)
-	@NotEmpty(message="O isbn deve ser preenchido")
+	@NotEmpty(message="O ISBN deve ser preenchido")
 	private String isbn;
 	@Column(name="ra", nullable = false, length=4)
+	@NotEmpty(message="O RA deve ser preenchido")
 	private String ra;
 	private String dataEmprestimo;
 	private String dataDevolucao;
@@ -28,10 +29,9 @@ public class Emprestimo {
 		
 	}
 	public Emprestimo(String isbn, String ra) {
-		super();
 		this.isbn = isbn;
 		this.ra = ra;
-		
+		setDataEmprestimo();
 	}
 	public String getIsbn() {
 		return isbn;
@@ -48,13 +48,12 @@ public class Emprestimo {
 	public String getDataEmprestimo() {
 		return dataEmprestimo;
 	}
-	public void setDataEmprestimo(String dataEmprestimo) {
-		if (validaData(dataEmprestimo) == true) {
-			this.dataEmprestimo = dataEmprestimo;
-		} else {
-			throw new RuntimeException("Data invalida.");
-		}
-		
+	// data do emprestimo - data atual do sistema
+	public void setDataEmprestimo() {
+		DateTime dataAtual = new DateTime();
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("YYYY/MM/dd");
+		this.dataEmprestimo = dataAtual.toString(fmt);
+		setDataDevolucaoPrevista();
 	}
 	public String getDataDevolucao() {
 		return dataDevolucao;
@@ -65,8 +64,10 @@ public class Emprestimo {
 	public String getDataDevolucaoPrevista() {
 		return dataDevolucaoPrevista;
 	}
-	public void setDataDevolucaoPrevista(String dataDevolucaoPrevista) {
-		this.dataDevolucaoPrevista = dataDevolucaoPrevista;
+	private void setDataDevolucaoPrevista() {
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("YYYY/MM/dd");
+		DateTime data = fmt.parseDateTime(getDataEmprestimo());
+		this.dataDevolucaoPrevista = data.plusDays(8).toString(fmt);
 	}
 	/**
 	 * valida o formato da data
