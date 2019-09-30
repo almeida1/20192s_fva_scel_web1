@@ -71,6 +71,7 @@ public class REQ09RegistrarEmprestimo {
 		emprestimoRepository.save(emprestimo);
 		List<Emprestimo> emprestimos = (List<Emprestimo>) emprestimoRepository.findAll();
 		Assert.assertEquals(1, emprestimos.size());
+		System.out.println(emprestimo.toString());
 		emprestimoRepository.deleteAll();
 	}
 

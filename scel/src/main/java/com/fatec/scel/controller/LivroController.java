@@ -32,7 +32,7 @@ public class LivroController {
 	}
 
 	/**
-	 * quando o usuario digita localhost:8080/api/add
+	 * quando o usuario digita localhost:8080/livros/cadastrar
 	 * 
 	 * @param livro
 	 * @return o html /CadastraLivro

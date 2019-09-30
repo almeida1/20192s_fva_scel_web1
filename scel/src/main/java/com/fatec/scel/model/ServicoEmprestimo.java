@@ -4,15 +4,26 @@ package com.fatec.scel.model;
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import java.text.ParseException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServicoEmprestimo {
 	
-
+    @Autowired
+    LivroRepository livroRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
+    public Livro consultaLivro( String isbn) {
+    	return livroRepository.findByIsbn(isbn);
+    }
+    public Usuario consultaUsuario( String ra) {
+    	return usuarioRepository.findByRa(ra);
+    }
 	public Emprestimo empresta(String isbn, String ra) {
-		if (isbn == null | ra == null) {
+		Livro livro = consultaLivro(isbn);
+		Usuario usuario = consultaUsuario(ra);
+		if (livro == null | usuario == null) {
 			throw new RuntimeException("Dados inválidos.");
 		} else {
 			Emprestimo emprestimo = new Emprestimo();
@@ -24,21 +35,21 @@ public class ServicoEmprestimo {
 			emprestimo.setDataEmprestimo(dataAtual.toString(fmt));
 			
 			// prazo de devolucao 8 dias
-			DateTime dataDevolucao = fmt.parseDateTime(emprestimo.getDataEmprestimo());
-			emprestimo.setDataDevolucao(dataDevolucao.plusDays(8).toString(fmt));
+			DateTime dataDevolucaoPrevista = fmt.parseDateTime(emprestimo.getDataEmprestimo());
+			emprestimo.setDataDevolucaoPrevista(dataDevolucaoPrevista.plusDays(8).toString(fmt));
 			
 			return emprestimo;
 		}
 	}
 
 	/**
-	 * Objetivo - verificar se a devolução esta atrasada
+	 * Objetivo - verificar se houve atraso na devolucao
 	 *
 	 * @param umEmprestimo
 	 * @return int < 0 se estiver atrasado e > 0 se estiver no prazo
 	 *         retorna nulo se o objeto emprestimo é nulo.
 	 */
-	public Integer devolucao(Emprestimo umEmprestimo) {
+	public Integer verificaAtraso(Emprestimo umEmprestimo) {
 		if (umEmprestimo != null) {
 			DateTimeFormatter fmt = DateTimeFormat.forPattern("YYYY/MM/dd");
 			DateTime dataAtual = fmt.parseDateTime(new DateTime().toString(fmt));
@@ -49,34 +60,5 @@ public class ServicoEmprestimo {
 			return null;
 		}
 	}
-	/**
-	 * valida o formato da data
-	 * 
-	 * @param data
-	 *            no formato yyyy/MM/dd
-	 * @return true se a data estiver no formato valido e false para formato
-	 *         invalido
-	 */
-	public boolean validaData(String data) {
-		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-		df.setLenient(false); //
-		try {
-			df.parse(data); // data válida
-			return true;
-		} catch (ParseException ex) {
-			return false;
-		}
-	}
-
-	public boolean ehDomingo(String data) {
-		boolean isValida = false;
-		DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy/MM/dd");
-		if (validaData(data) == true) {
-			DateTime umaData = fmt.parseDateTime(data);
-			if (umaData.dayOfWeek().getAsText().equals("Domingo")) {
-				isValida = true;
-			}
-		}
-		return isValida;
-	}
+	
 }
