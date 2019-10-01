@@ -59,7 +59,7 @@ public class EmprestimoController {
 			if (livro != null && usuario != null) {
 				
 				emprestimoRepository.save(emprestimo);
-				modelAndView = new ModelAndView("ConsultarLivros");
+				modelAndView = new ModelAndView("ConsultarEmprestimo");
 				modelAndView.addObject("emprestimos", emprestimoRepository.findAll());
 				return modelAndView;
 			} else {
