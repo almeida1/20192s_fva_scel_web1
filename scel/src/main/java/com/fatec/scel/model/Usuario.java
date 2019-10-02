@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.NaturalId;
 @Entity
@@ -12,11 +13,18 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	@NaturalId
 	@Column(nullable = false, length = 4)
+	@NotEmpty(message="O ra deve ser preenchido")
 	String ra;
+	@Column(nullable = false, length = 100)
+	@NotEmpty(message="O nome deve ser preenchido")
 	String nome;
+	@Column(nullable = false, length = 100)
+	@NotEmpty(message="O e-mail deve ser preenchido")
 	String email;
+	
     public Usuario() {
     }
 	public Usuario(String ra, String nome, String email) {

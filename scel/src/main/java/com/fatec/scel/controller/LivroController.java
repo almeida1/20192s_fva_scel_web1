@@ -20,7 +20,7 @@ import com.fatec.scel.model.LivroRepository;
 @RestController
 @RequestMapping(path = "/livros")
 public class LivroController {
-//insert into livro values ('1', 'Pressman','aaaa', 'engenharia')
+
 	@Autowired
 	private LivroRepository repository;
 

@@ -26,16 +26,16 @@
 	<div class="container my-5">
 	<br/>
 	
-		<h3>Cadastrar Livro</h3>
+		<h3>Cadastrar Usuario</h3>
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-8">
-					<form action="#" th:action="@{/usuarios/usuario}" th:object="${usuario}" 	method="post">
+					<form action="#" th:action="@{/usuarios/save}" th:object="${usuario}" 	method="post">
 						<div class="row">
 
 							<div class="form-group col-md-4">
-								<label for="RA" class="col-form-label">RA</label> 
-								<input type="text" th:field="*{ra}" class="form-control" id="ra" placeholder="ra"> 
+								<label for="ra" class="col-form-label">RA</label> 
+								<input type="text" th:field="*{ra}" class="form-control" id="ra" placeholder="RA"> 
 								<span th:if="${#fields.hasErrors('ra')}" th:errors="*{ra}" class="text-danger"> </span>
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 								<label for="email" class="col-form-label">E-mail</label> <input
 									type="text" th:field="*{email}" class="form-control"
 									id="titulo" placeholder="Email"> <span
-									th:if="${#fields.hasErrors('titulo')}" th:errors="*{email}"
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 									class="text-danger"></span>
 							</div>
 
