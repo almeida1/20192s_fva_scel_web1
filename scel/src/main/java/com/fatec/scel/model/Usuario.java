@@ -18,9 +18,11 @@ public class Usuario {
 	@Column(nullable = false, length = 4)
 	@NotEmpty(message="O ra deve ser preenchido")
 	String ra;
+	
 	@Column(nullable = false, length = 100)
 	@NotEmpty(message="O nome deve ser preenchido")
 	String nome;
+	
 	@Column(nullable = false, length = 100)
 	@NotEmpty(message="O e-mail deve ser preenchido")
 	String email;
@@ -28,12 +30,17 @@ public class Usuario {
     public Usuario() {
     }
 	public Usuario(String ra, String nome, String email) {
-		super();
+		
 		this.ra = ra;
 		this.nome = nome;
 		this.email = email;
 	}
-
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getId() {
+		return id;
+	}
 	public String getRa() {
 		return ra;
 	}

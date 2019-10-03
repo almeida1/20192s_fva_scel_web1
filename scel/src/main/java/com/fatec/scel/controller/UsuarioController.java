@@ -46,7 +46,7 @@ public class UsuarioController {
 			if (jaExiste == null) {
 				repository.save(usuario);
 				modelAndView = new ModelAndView("ConsultarUsuario");
-				modelAndView.addObject("usarios", repository.findAll());
+				modelAndView.addObject("usuarios", repository.findAll());
 				return modelAndView;
 			} else {
 				return new ModelAndView("CadastrarUsuario");
