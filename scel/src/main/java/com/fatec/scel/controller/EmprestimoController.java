@@ -57,13 +57,13 @@ public class EmprestimoController {
 			usuario = usuarioRepository.findByRa(emprestimo.getRa());
 			
 			if (livro != null && usuario != null) {
-				
+				emprestimo.setDataEmprestimo();
 				emprestimoRepository.save(emprestimo);
 				modelAndView = new ModelAndView("ConsultarEmprestimo");
 				modelAndView.addObject("emprestimos", emprestimoRepository.findAll());
 				return modelAndView;
 			} else {
-				return new ModelAndView("ConsultarEmprestimo");
+				return new ModelAndView("RegistrarEmprestimo");
 			}
 		} catch (Exception e) {
 			System.out.println("erro ===> " +e.getMessage());
