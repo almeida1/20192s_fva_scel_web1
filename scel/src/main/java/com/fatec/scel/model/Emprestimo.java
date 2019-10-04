@@ -15,6 +15,7 @@ public class Emprestimo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
 	@Column(name="isbn", nullable = false, length=4)
 	@NotEmpty(message="O ISBN deve ser preenchido")
 	private String isbn;
@@ -32,6 +33,12 @@ public class Emprestimo {
 		this.isbn = isbn;
 		this.ra = ra;
 		setDataEmprestimo();
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getId() {
+		return id;
 	}
 	public String getIsbn() {
 		return isbn;
