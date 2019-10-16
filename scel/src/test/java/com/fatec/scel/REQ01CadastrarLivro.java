@@ -1,11 +1,9 @@
 package com.fatec.scel;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +22,11 @@ public class REQ01CadastrarLivro {
 
 	@Test
 	public void CT01CadastrarLivroComSucesso() {
-		// dado que o isbn nao esta cadastrado
-		// quando o usurio inclui as informacoes obrigatorias e confirma a operacao
-		repository.save(new Livro("3333", "Teste de Software", "Delamaro"));
-		// o sistema valida os dados e a consulta retorna a quantidade de livros cadastrados
+		// dado que não existe nenhum livro cadastrado
+		repository.deleteAll();
+	    // quando o usuario inclui um livro valido
+		repository.save(new Livro("1111", "Teste de Software", "Delamaro"));
+		// então - a quantidade de livros cadastrados é igual 1
 		final List<Livro> todos = (List<Livro>) repository.findAll();
 		assertEquals(1, todos.size());
 		repository.deleteById(1l);
