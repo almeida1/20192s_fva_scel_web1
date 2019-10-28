@@ -27,9 +27,12 @@
 	<br/>
 	
 		<h3>Cadastrar Livro</h3>
+	
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-8">
+				<!-- chama o alert -->
+				
 					<form action="#" th:action="@{/livros/save}" th:object="${livro}" 	method="post">
 						<div class="row">
 
@@ -64,8 +67,9 @@
 							</div>
 						
 						</div>
-
+                     
 					</form>
+					 <div th:replace="fragments/alert"></div>
 				</div>
 			</div>
 		</div>

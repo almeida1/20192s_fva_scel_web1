@@ -45,6 +45,12 @@ public class EmprestimoController {
 
 		return mv;
 	}
+	@GetMapping("/consulta")
+	public ModelAndView listar() {
+		ModelAndView modelAndView = new ModelAndView("ConsultarEmprestimo");
+		modelAndView.addObject("emprestimos", emprestimoRepository.findAll());
+		return modelAndView;
+	}
 	@PostMapping("/save")
 	public ModelAndView save(@Valid Emprestimo emprestimo, BindingResult result) {
 		ModelAndView modelAndView = new ModelAndView("ConsultarEmprestimo");
