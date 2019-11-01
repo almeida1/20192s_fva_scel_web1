@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fatec.scel.model.Endereco;
 import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.Usuario;
 import com.fatec.scel.model.UsuarioRepository;
@@ -57,6 +59,7 @@ public class UsuarioController {
 
 	@PostMapping("/save")
 	public ModelAndView save(@Valid Usuario usuario, BindingResult result) {
+		System.out.println("entrou ===================================================>");
 		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
 		if (result.hasErrors()) {
 			return new ModelAndView("CadastrarUsuario");
@@ -65,6 +68,16 @@ public class UsuarioController {
 			Usuario jaExiste=null;
 			jaExiste = repository.findByRa(usuario.getRa());
 			if (jaExiste == null) {
+				System.out.println("entrou ===================================================>");
+				RestTemplate template = new RestTemplate();
+				
+				//Dado que sou usuario da consulta de cep
+				String url = "https://viacep.com.br/ws/{cep}/json/";
+				//Quando solicitar o endereco passando um cep valido 
+				String cep = usuario.getCep();
+				Endereco endereco = template.getForObject(url,Endereco.class,cep);
+				usuario.setEndereco(endereco.getLogradouro());
+				System.out.println("endereco =======> " + endereco.getLogradouro());
 				repository.save(usuario);
 				modelAndView = new ModelAndView("ConsultarUsuario");
 				modelAndView.addObject("usuarios", repository.findAll());

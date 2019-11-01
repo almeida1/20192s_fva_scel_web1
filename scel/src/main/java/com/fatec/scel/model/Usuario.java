@@ -27,13 +27,19 @@ public class Usuario {
 	@NotEmpty(message="O e-mail deve ser preenchido")
 	String email;
 	
+	String cep;
+	
+	String endereco;
+	
     public Usuario() {
     }
-	public Usuario(String ra, String nome, String email) {
+	public Usuario(String ra, String nome, String email, String cep, String endereco) {
 		
 		this.ra = ra;
 		this.nome = nome;
 		this.email = email;
+		this.cep = cep;
+		this.endereco = endereco;
 	}
 	public void setId(Long id) {
 		this.id = id;
@@ -65,6 +71,18 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	public String getEndereco() {
+		return endereco;
+	}
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
 	@Override
 	public String toString() {
 		return "Usuario [ra=" + ra + ", nome=" + nome + ", email=" + email + "]";
