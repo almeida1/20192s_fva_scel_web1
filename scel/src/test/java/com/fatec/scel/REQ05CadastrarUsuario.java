@@ -28,10 +28,10 @@ public class REQ05CadastrarUsuario {
 		// dado que não existe nenhum livro cadastrado
 		repository.deleteAll();
 	    // quando o usuario inclui um livro valido
-		repository.save(new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","04280-130","Rua Frei João, 59"));
+		repository.save(new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","04280-130"));
 		// então - a quantidade de livros cadastrados é igual 1
 		final List<Usuario> todos = (List<Usuario>) repository.findAll();
-		assertEquals(2, todos.size());
+		assertEquals(1, todos.size());
 		repository.deleteById(1l);
 	}
 	@Test
@@ -39,14 +39,12 @@ public class REQ05CadastrarUsuario {
 		// dado que não existe nenhum livro cadastrado
 		repository.deleteAll();
 	    // quando o usuario inclui um livro valido
-		repository.save(new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","04280130",""));
+		Usuario usuario = new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","03166-000");
+		usuario.setEndereco();
+		repository.save(usuario);
 		// então - a quantidade de livros cadastrados é igual 1
-		Usuario usuarioRO=null;
-		usuarioRO = repository.findByRa("aaaa");
-		assertThat(usuarioRO).isNull();
-		System.out.println(usuarioRO.getCep());
-		assertThat(usuarioRO.getEndereco()).isEqualTo("Rua Frei João");
 		
-		
+		Usuario usuarioRO = repository.findByRa("aaaa");
+		assertThat(usuarioRO.getEndereco()).isEqualTo("Rua Taquari");
 	}
 }

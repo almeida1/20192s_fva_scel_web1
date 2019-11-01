@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.NaturalId;
+import org.springframework.web.client.RestTemplate;
 @Entity
 public class Usuario {
 	@Id
@@ -33,14 +34,15 @@ public class Usuario {
 	
     public Usuario() {
     }
-	public Usuario(String ra, String nome, String email, String cep, String endereco) {
+	public Usuario(String ra, String nome, String email, String cep) {
 		
 		this.ra = ra;
 		this.nome = nome;
 		this.email = email;
 		this.cep = cep;
-		this.endereco = endereco;
+	
 	}
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -82,6 +84,13 @@ public class Usuario {
 	}
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+	public void setEndereco() {
+		RestTemplate template = new RestTemplate();
+		String url = "https://viacep.com.br/ws/{cep}/json/";
+		Endereco endereco = template.getForObject(url,Endereco.class,getCep());
+		this.endereco = endereco.getLogradouro();
+	
 	}
 	@Override
 	public String toString() {
