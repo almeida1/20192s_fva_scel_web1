@@ -45,7 +45,6 @@ public class REQ05CadastrarUsuario {
 		usuario.setEndereco(servico.obtemEndereco(usuario.getCep()));
 		repository.save(usuario);
 		// então - a quantidade de livros cadastrados é igual 1
-		
 		Usuario usuarioRO = repository.findByRa("aaaa");
 		assertThat(usuarioRO.getEndereco()).isEqualTo("Rua Taquari");
 	}

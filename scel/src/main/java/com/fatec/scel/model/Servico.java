@@ -41,5 +41,10 @@ public class Servico {
 		Endereco endereco = template.getForObject(url,Endereco.class,cep);
 		return endereco.getLogradouro();
 	}
-
+	public String cadastrarUsuario(Usuario usuario) {
+		RestTemplate template = new RestTemplate();
+		String url = "https://viacep.com.br/ws/{cep}/json/";
+		
+		return null;
+	}
 }
