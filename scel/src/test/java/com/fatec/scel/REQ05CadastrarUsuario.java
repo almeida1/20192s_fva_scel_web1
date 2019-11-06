@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
+import com.fatec.scel.model.Servico;
 import com.fatec.scel.model.Usuario;
 import com.fatec.scel.model.UsuarioRepository;
 
@@ -22,6 +22,8 @@ public class REQ05CadastrarUsuario {
 
 	@Autowired
 	UsuarioRepository repository;
+	@Autowired
+	Servico servico;
 
 	@Test
 	public void CT01CadastrarUsuarioComSucesso() {
@@ -40,7 +42,7 @@ public class REQ05CadastrarUsuario {
 		repository.deleteAll();
 	    // quando o usuario inclui um livro valido
 		Usuario usuario = new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","03166-000");
-		usuario.setEndereco();
+		usuario.setEndereco(servico.obtemEndereco(usuario.getCep()));
 		repository.save(usuario);
 		// então - a quantidade de livros cadastrados é igual 1
 		

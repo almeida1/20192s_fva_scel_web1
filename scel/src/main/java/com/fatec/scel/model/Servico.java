@@ -10,6 +10,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class Servico {
@@ -33,6 +34,12 @@ public class Servico {
 		} catch (ParseException ex) {
 			return false;
 		}
+	}
+	public String obtemEndereco(String cep) {
+		RestTemplate template = new RestTemplate();
+		String url = "https://viacep.com.br/ws/{cep}/json/";
+		Endereco endereco = template.getForObject(url,Endereco.class,cep);
+		return endereco.getLogradouro();
 	}
 
 }

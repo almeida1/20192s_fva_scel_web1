@@ -85,13 +85,7 @@ public class Usuario {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public void setEndereco() {
-		RestTemplate template = new RestTemplate();
-		String url = "https://viacep.com.br/ws/{cep}/json/";
-		Endereco endereco = template.getForObject(url,Endereco.class,getCep());
-		this.endereco = endereco.getLogradouro();
 	
-	}
 	@Override
 	public String toString() {
 		return "Usuario [ra=" + ra + ", nome=" + nome + ", email=" + email + "]";

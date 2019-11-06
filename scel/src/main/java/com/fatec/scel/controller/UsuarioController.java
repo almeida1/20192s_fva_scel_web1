@@ -16,12 +16,15 @@ import com.fatec.scel.model.Endereco;
 import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.Usuario;
 import com.fatec.scel.model.UsuarioRepository;
+import com.fatec.scel.model.Servico;
 
 @RestController
 @RequestMapping(path = "/usuarios")
 public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;
+	@Autowired
+	private Servico servico;
 
 	@GetMapping("/consulta")
 	public ModelAndView listar() {
@@ -68,6 +71,8 @@ public class UsuarioController {
 			Usuario jaExiste=null;
 			jaExiste = repository.findByRa(usuario.getRa());
 			if (jaExiste == null) {
+				String endereco = servico.obtemEndereco(usuario.getCep());
+				usuario.setEndereco(endereco);
 				repository.save(usuario);
 				modelAndView = new ModelAndView("ConsultarUsuario");
 				modelAndView.addObject("usuarios", repository.findAll());
