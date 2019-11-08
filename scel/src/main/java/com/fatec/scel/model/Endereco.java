@@ -1,8 +1,5 @@
 package com.fatec.scel.model;
 
-import javax.persistence.Entity;
-
-
 public class Endereco {
 
 	private String cep;

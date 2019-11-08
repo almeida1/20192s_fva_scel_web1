@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class REQ05CadastrarUsuarioMVC {
+public class REQ08AlterarUsuario {
 
 	@Test
 	public void test() {

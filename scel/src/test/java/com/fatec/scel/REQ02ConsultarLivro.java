@@ -16,15 +16,26 @@ public class REQ02ConsultarLivro {
 	@Autowired
 	LivroRepository repository;
 	@Test
-	public void CT02ConsultarLivroPorISBNComSucesso() {
+	public void CT01ConsultarLivroPorISBNComSucesso() {
 		//dado que o isbn 3333 esta cadastrado
-		repository.save(new Livro("3333", "Teste de Software", "Delamaro"));
+		Livro livro1 = new Livro("3333", "Teste de Software", "Delamaro");
+		repository.save(livro1);
 		//quando o usurio consulta pelo isbn 
-		Livro livro = repository.findByIsbn("3333");
+		Livro livro2 = repository.findByIsbn("3333");
 		//o sistema retonra not null
-		assertNotNull(livro);
-
-		repository.deleteById(1l);
+		assertNotNull(livro2);
+        assertTrue(livro1.equals(livro2));
+		repository.deleteAll();
 	}
-
+	@Test
+	public void CT02ConsultarLivroPorISBN_invalido() {
+		//dado que o isbn 3333 esta cadastrado
+		Livro livro1 = new Livro("3333", "Teste de Software", "Delamaro");
+		repository.save(livro1);
+		//quando o usurio consulta pelo isbn 
+		Livro livro2 = repository.findByIsbn("4444");
+		//o sistema retonra not null
+		assertNull(livro2);
+      	repository.deleteAll();
+	}
 }
