@@ -34,7 +34,7 @@ public class REQ05CadastrarUsuario {
 		// então - a quantidade de livros cadastrados é igual 1
 		final List<Usuario> todos = (List<Usuario>) repository.findAll();
 		assertEquals(1, todos.size());
-		repository.deleteById(1l);
+		repository.deleteAll();
 	}
 	@Test
 	public void CT02CadastrarUsuarioComSucesso() {
