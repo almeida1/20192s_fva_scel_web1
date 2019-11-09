@@ -1,5 +1,6 @@
 package com.fatec.scel;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.result.ViewResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fatec.scel.model.Livro;
+import com.fatec.scel.model.LivroRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,7 +25,8 @@ import com.fatec.scel.model.Livro;
 public class REQ01CadastrarLivroMVC {
 	@Autowired
 	private MockMvc mockMvc;
-
+    @Autowired
+    LivroRepository repository;
 	@Test
 	public void status0() throws Exception {
 		ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.get("/livros/cadastrar"));
@@ -52,6 +55,17 @@ public class REQ01CadastrarLivroMVC {
 //	      .contentType(MediaType.APPLICATION_JSON)
 //	      .accept(MediaType.APPLICATION_JSON)));
 	      
+	}
+	@Test
+	public void removerDeveExcluirContato() {
+//		repository.save(new Livro("1111", "Teste de Software", "Delamaro"));
+//		Livro livro2 = repository.findByIsbn("3333");
+//		mockMvc.perform(get("livros/delete/{id}",livro2.getId()))
+//		.andExpect(status().isOk())
+//		.andExpect(view().name("livros/delete"))
+//		.andExpect(mode().attribute("livro",Matchers.any(Livro.class)))
+//		.andExpect(model().attribute("livro",livro))
+//		.andDo(print());
 	}
 	public static String asJsonString(final Object obj) {
 	    try {

@@ -40,26 +40,21 @@ public class LivroController {
 	 */
 	@GetMapping("/cadastrar")
 	public ModelAndView cadastraLivro(Livro livro) {
-
 		ModelAndView mv = new ModelAndView("CadastrarLivro");
 		mv.addObject("livro", livro);
-
 		return mv;
 	}
 
 	@GetMapping("/edit/{isbn}") // diz ao metodo que ira responder a uma requisicao do tipo get
 	public ModelAndView mostraFormAdd(@PathVariable("isbn") String isbn) {
 		ModelAndView modelAndView = new ModelAndView("AtualizaLivro");
-
 		modelAndView.addObject("livro", repository.findByIsbn(isbn)); // o repositorio e injetado no controller
-
 		return modelAndView; // addObject adiciona objetos para view
 
 	}
 
 	@GetMapping("/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
-
 		repository.deleteById(id);
 		ModelAndView modelAndView = new ModelAndView("ConsultarLivros");
 		modelAndView.addObject("livros", repository.findAll());
@@ -94,7 +89,6 @@ public class LivroController {
 
 	@PostMapping("/update/{id}")
 	public ModelAndView atualiza(@PathVariable("id") Long id, @Valid Livro livro, BindingResult result) {
-
 		if (result.hasErrors()) {
 			livro.setId(id);
 			return new ModelAndView("AtualizaLivro");
