@@ -1,3 +1,4 @@
+
 package com.fatec.scel.model;
 
 import org.springframework.data.jpa.repository.Query;

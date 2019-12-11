@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class Servico {
+public class UsuarioServico {
 	
   	public String obtemEndereco(String cep) {
 		RestTemplate template = new RestTemplate();

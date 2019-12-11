@@ -1,6 +1,7 @@
 package com.fatec.scel;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.LivroRepository;
+import com.fatec.scel.model.LivroService;
+
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -24,6 +27,7 @@ public class REQ01CadastrarLivro {
 
 	@Autowired
 	LivroRepository repository;
+	LivroService livroService;
 	private Validator validator;
 	private ValidatorFactory validatorFactory;
 
@@ -38,6 +42,7 @@ public class REQ01CadastrarLivro {
 		assertEquals(1, todos.size());
 		repository.deleteAll();
 	}
+	
 
 	@Test
 	public void CT02DeveDetectarTituloInvalido() {
