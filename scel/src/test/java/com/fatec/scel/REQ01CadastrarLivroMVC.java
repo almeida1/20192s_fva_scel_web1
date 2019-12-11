@@ -48,7 +48,7 @@ public class REQ01CadastrarLivroMVC {
 		resultActions.andExpect(model.attributeExists("livro"));
 	}
 	@Test
-	public void createEmployeeAPI() throws Exception {
+	public void createLivroAPI() throws Exception {
 //	  mockMvc.perform( MockMvcRequestBuilders
 //	      .post("/livros/cadastrar")
 //	      .content(asJsonString(new Livro("1111", "Teste de Software", "Delamaro"))

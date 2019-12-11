@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.LivroRepository;
+import com.fatec.scel.model.LivroService;
 
 @RestController
 @RequestMapping(path = "/livros")
@@ -24,6 +25,8 @@ public class LivroController {
 
 	@Autowired
 	private LivroRepository repository;
+	@Autowired
+	private LivroService service;
 
 	@GetMapping("/consulta")
 	public ModelAndView listar() {
@@ -66,26 +69,24 @@ public class LivroController {
 	public ModelAndView save(@Valid Livro livro, BindingResult result) {
 		ModelAndView mv = new ModelAndView("CadastrarLivro");
 		if (result.hasErrors()) {
-			mv.addObject("fail","Dados inválidos"); //quando fail nao eh nulo a msg aparece na tela
+			mv.addObject("fail", "Dados inválidos"); // quando fail nao eh nulo a msg aparece na tela
 			return mv;
 		}
 		try {
-			Livro jaExiste=null;
-			jaExiste = repository.findByIsbn(livro.getIsbn());
-			if (jaExiste == null) {
-				repository.save(livro);
-				mv.addObject("success","Livro cadastrado com sucesso"); //quando success nao eh nulo
+
+			Livro umLivro = service.save(livro);
+			if (umLivro != null) {
+				mv.addObject("success", "Livro cadastrado com sucesso"); // quando success nao eh nulo
 				return mv;
 			} else {
-				mv.addObject("fail","Livro já cadastrado."); //quando fail nao eh nulo a msg aparece na tela
+				mv.addObject("fail", "Livro já cadastrado."); // quando fail nao eh nulo a msg aparece na tela
 				return mv;
 			}
 		} catch (Exception e) {
-			mv.addObject("fail","erro ===> " +e.getMessage());
-			return mv; 
+			mv.addObject("fail", "erro ===> " + e.getMessage());
+			return mv;
 		}
 	}
-
 
 	@PostMapping("/update/{id}")
 	public ModelAndView atualiza(@PathVariable("id") Long id, @Valid Livro livro, BindingResult result) {
