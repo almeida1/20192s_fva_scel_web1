@@ -23,7 +23,7 @@ import javax.validation.ValidatorFactory;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class REQ01CadastrarLivro {
+public class REQ01CadastrarLivro_TI_repository {
 
 	@Autowired
 	LivroRepository repository;

@@ -48,4 +48,14 @@ public class REQ05CadastrarUsuario {
 		Usuario usuarioRO = repository.findByRa("aaaa");
 		assertThat(usuarioRO.getEndereco()).isEqualTo("Rua Taquari");
 	}
+	@Test
+	public void CT01CadastrarUsuarioComSucesso_endereco_valido() {
+		String cep = "03166-000";
+		assertThat(servico.obtemEndereco(cep)).isNotNull();
+	}
+	@Test
+	public void CT01CadastrarUsuarioComSucesso_endereco_invalido() {
+		String cep = "";
+		assertThat(servico.obtemEndereco(cep)).isNotNull();
+	}
 }

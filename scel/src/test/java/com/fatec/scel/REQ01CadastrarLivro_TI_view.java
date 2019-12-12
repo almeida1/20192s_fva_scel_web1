@@ -22,7 +22,7 @@ import com.fatec.scel.model.LivroRepository;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class REQ01CadastrarLivroMVC {
+public class REQ01CadastrarLivro_TI_view {
 	@Autowired
 	private MockMvc mockMvc;
     @Autowired

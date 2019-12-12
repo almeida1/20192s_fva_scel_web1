@@ -14,7 +14,7 @@ import com.fatec.scel.model.LivroService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class REQ01CadastrarLivro_pelo_servico {
+public class REQ01CadastrarLivro_TI_service {
 
 	@Autowired
 	LivroService livroService;

@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ REQ01CadastrarLivro.class, 
-	            REQ01CadastrarLivroMVC.class,
+@SuiteClasses({ REQ01CadastrarLivro_TI_repository.class, 
+	            REQ01CadastrarLivro_TI_view.class,
 	            REQ02ConsultarLivro.class, 
 	            REQ05CadastrarUsuario.class,
 		        REQ09RegistrarEmprestimo.class, 
