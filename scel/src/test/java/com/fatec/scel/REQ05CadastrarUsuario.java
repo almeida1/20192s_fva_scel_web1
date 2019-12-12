@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fatec.scel.model.UsuarioServico;
+import com.fatec.scel.model.UsuarioService;
 import com.fatec.scel.model.Usuario;
 import com.fatec.scel.model.UsuarioRepository;
 
@@ -23,7 +23,7 @@ public class REQ05CadastrarUsuario {
 	@Autowired
 	UsuarioRepository repository;
 	@Autowired
-	UsuarioServico servico;
+	UsuarioService servico;
 
 	@Test
 	public void CT01CadastrarUsuarioComSucesso() {

@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fatec.scel.model.Emprestimo;
 import com.fatec.scel.model.EmprestimoRepository;
-import com.fatec.scel.model.UsuarioServico;
+import com.fatec.scel.model.UsuarioService;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest //suporte do h2

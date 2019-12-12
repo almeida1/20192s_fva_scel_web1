@@ -15,7 +15,7 @@ import com.fatec.scel.model.Emprestimo;
 import com.fatec.scel.model.EmprestimoRepository;
 import com.fatec.scel.model.Livro;
 import com.fatec.scel.model.LivroRepository;
-import com.fatec.scel.model.UsuarioServico;
+import com.fatec.scel.model.UsuarioService;
 import com.fatec.scel.model.Usuario;
 import com.fatec.scel.model.UsuarioRepository;
 
@@ -30,7 +30,7 @@ public class EmprestimoController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	@Autowired
-	private UsuarioServico servico;
+	private UsuarioService servico;
 	/**
 	 * quando o usuario digita localhost:8080/emprestimo/cadastrar
 	 * 

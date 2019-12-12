@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fatec.scel.model.Usuario;
 import com.fatec.scel.model.UsuarioRepository;
-import com.fatec.scel.model.UsuarioServico;
+import com.fatec.scel.model.UsuarioService;
 
 @RestController
 @RequestMapping(path = "/usuarios")
@@ -21,7 +21,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository repository;
 	@Autowired
-	private UsuarioServico servico;
+	private UsuarioService servico;
 	@GetMapping("/consulta")
 	public ModelAndView listar() {
 		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
