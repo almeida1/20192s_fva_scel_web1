@@ -23,15 +23,14 @@ import com.fatec.scel.model.LivroService;
 @RequestMapping(path = "/livros")
 public class LivroController {
 
-	@Autowired
-	private LivroRepository repository;
+	
 	@Autowired
 	private LivroService service;
 
 	@GetMapping("/consulta")
 	public ModelAndView listar() {
 		ModelAndView modelAndView = new ModelAndView("ConsultarLivros");
-		modelAndView.addObject("livros", repository.findAll());
+		modelAndView.addObject("livros", service.buscarTodos());
 		return modelAndView;
 	}
 
@@ -51,16 +50,16 @@ public class LivroController {
 	@GetMapping("/edit/{isbn}") // diz ao metodo que ira responder a uma requisicao do tipo get
 	public ModelAndView mostraFormAdd(@PathVariable("isbn") String isbn) {
 		ModelAndView modelAndView = new ModelAndView("AtualizaLivro");
-		modelAndView.addObject("livro", repository.findByIsbn(isbn)); // o repositorio e injetado no controller
+		modelAndView.addObject("livro", service.buscarPorIsbn(isbn)); // o repositorio e injetado no controller
 		return modelAndView; // addObject adiciona objetos para view
 
 	}
 
 	@GetMapping("/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
-		repository.deleteById(id);
+		service.excluir(id);
 		ModelAndView modelAndView = new ModelAndView("ConsultarLivros");
-		modelAndView.addObject("livros", repository.findAll());
+		modelAndView.addObject("livros", service.buscarTodos());
 		return modelAndView;
 
 	}
@@ -74,7 +73,7 @@ public class LivroController {
 		}
 		try {
 
-			Livro umLivro = service.save(livro);
+			Livro umLivro = service.salvar(livro);
 			if (umLivro != null) {
 				mv.addObject("success", "Livro cadastrado com sucesso"); // quando success nao eh nulo
 				return mv;
@@ -94,13 +93,13 @@ public class LivroController {
 			livro.setId(id);
 			return new ModelAndView("AtualizaLivro");
 		}
-		Livro umLivro = repository.findById(id).get();
+		Livro umLivro = service.findById(id);
 		umLivro.setAutor(livro.getAutor());
 		umLivro.setIsbn(livro.getIsbn());
 		umLivro.setTitulo(livro.getTitulo());
-		repository.save(umLivro);
+		service.salvar(umLivro);
 		ModelAndView modelAndView = new ModelAndView("ConsultarLivros");
-		modelAndView.addObject("livros", repository.findAll());
+		modelAndView.addObject("livros", service.buscarTodos());
 		return modelAndView;
 	}
 }

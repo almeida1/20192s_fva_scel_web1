@@ -27,6 +27,6 @@ public class REQ01CadastrarLivro_TI_service {
 	@Test
 	public void CT01CadastrarLivroComSucesso() {
 		Livro livro = new Livro("1111", "Teste de Software", "Delamaro");
-		assertThat(livroService.save(livro)).isNotNull();
+		assertThat(livroService.salvar(livro)).isNotNull();
 	}
 }
