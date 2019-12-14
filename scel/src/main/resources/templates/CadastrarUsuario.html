@@ -61,13 +61,7 @@
 								<span th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"
 									class="text-danger"></span>
 							</div>
-							<div class="row">	
-							<div class="form-group col-md-8">
-								<label for="cendereco" class="col-form-label">Endereço</label>
-								<input type="text" th:field="*{endereco}" class="form-control"	id="endereco" placeholder="Endereço"> 
-								<span th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}"
-									class="text-danger"></span>
-							</div>
+							
 							<div class="form-group col-md-8">
 								<input type="submit" class="btn btn-primary" value="Cadastrar Usuario"> 
 								<input type="button" class="btn btn-primary" value="Consultar Usuario" onclick="consulta();">

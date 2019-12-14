@@ -65,10 +65,12 @@ public class UsuarioController {
 				modelAndView.addObject("usuarios", repository.findAll());
 				return modelAndView;
 			} else {
-				return new ModelAndView("CadastrarUsuario");
+				ModelAndView mv = new ModelAndView("CadastrarUsuario");
+				mv.addObject("fail", "Erro no cadastro."); 
+				return mv;
 			}
 		} catch (Exception e) {
-			System.out.println("erro ===> " +e.getMessage());
+			modelAndView.addObject("fail", "Erro no cadastro."); 
 			return modelAndView; // captura o erro mas nao informa o motivo.
 		}
 	}
@@ -83,8 +85,19 @@ public class UsuarioController {
 		umUsuario.setRa(usuario.getRa());
 		umUsuario.setNome(usuario.getNome());
 		umUsuario.setEmail(usuario.getEmail());
-		repository.save(umUsuario);
+		umUsuario.setCep(usuario.getCep());
 		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
+		try {
+		    String endereco = servico.obtemEndereco(usuario.getCep());
+		    umUsuario.setEndereco(endereco);
+		    repository.save(umUsuario);
+		}catch (Exception e) {
+			ModelAndView mv = new ModelAndView("AtualizaUsuario");
+			 umUsuario.setEndereco("");
+			mv.addObject("fail", "CEP não localizado."); 
+			return mv;
+		}
+		
 		modelAndView.addObject("usuarios", repository.findAll());
 		return modelAndView;
 	}
