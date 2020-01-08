@@ -17,7 +17,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
       .authorizeRequests()
         .antMatchers("/fragments/**","/login").permitAll() //estao acessiveis
-        .anyRequest().authenticated() //para todos os outros metodos
+        .and().authorizeRequests().antMatchers("/console").permitAll() //deve ser retirado no ambiente de producao
+        .anyRequest().authenticated() //para todos os outros acessos
         .and()
       .formLogin()
         .loginPage("/login").defaultSuccessUrl("/home",true)
@@ -26,6 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .logout()
       .logoutUrl("/logout")
         .permitAll();
+    http.csrf().disable();
+    http.headers().frameOptions().disable();
+
   }
 
   @Bean
