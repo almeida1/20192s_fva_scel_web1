@@ -7,10 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
+
 import org.hibernate.annotations.NaturalId;
-import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -18,27 +21,32 @@ public class Usuario {
 	@NaturalId
 	@Column(nullable = false, length = 4)
 	@NotEmpty(message="O ra deve ser preenchido")
-	String ra;
+	private String ra;
 	
 	@Column(nullable = false, length = 100)
 	@NotEmpty(message="O nome deve ser preenchido")
-	String nome;
+	private String nome;
 	
 	@Column(nullable = false, length = 100)
 	@NotEmpty(message="O e-mail deve ser preenchido")
-	String email;
+	private String email;
 	
-	String cep;
+	@JsonIgnore
+	@NotEmpty(message="O campo senha é obrigatório")
+	private String senha;
 	
-	String endereco;
+	private String cep;
+	
+	private String endereco;
 	
     public Usuario() {
     }
-	public Usuario(String ra, String nome, String email, String cep) {
+	public Usuario(String ra, String nome, String email, String senha, String cep) {
 		
 		this.ra = ra;
 		this.nome = nome;
 		this.email = email;
+		this.senha = senha;
 		this.cep = cep;
 	
 	}
@@ -73,6 +81,12 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 	public String getCep() {
 		return cep;
 	}

@@ -24,13 +24,13 @@
 		<div>header</div>
 	</header>
 	<div class="container my-5">
-	<br/>
-	
+		<br />
+
 		<h3>Cadastrar Usuario</h3>
 		<div class="card">
 			<div class="card-body">
 				<div class="col-md-8">
-					<form action="#" th:action="@{/usuarios/save}" th:object="${usuario}" 	method="post">
+					<form action="#" th:action="@{/usuarios/save}" th:object="${usuario}" method="post">
 						<div class="row">
 
 							<div class="form-group col-md-4">
@@ -41,37 +41,52 @@
 						</div>
 						<div class="row">
 							<div class="form-group col-md-8">
-								    <label for="nome" class="col-form-label">Nome</label> 
-								    <input type="text" th:field="*{nome}" class="form-control" id="nome" placeholder="Nome"> 
-									<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"> </span>
+								<label for="nome" class="col-form-label">Nome</label> 
+								<input type="text" th:field="*{nome}" class="form-control" id="nome" placeholder="Nome"> 
+								<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"> </span>
 							</div>
 						</div>
-						<div class="row">	
+						<div class="row">
 							<div class="form-group col-md-8">
-								<label for="email" class="col-form-label">E-mail</label>
-								<input type="text" th:field="*{email}" class="form-control"	id="email" placeholder="Email"> 
-								<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+								<label for="email" class="col-form-label">E-mail</label> <input
+									type="text" th:field="*{email}" class="form-control" id="email"
+									placeholder="Email"> <span
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
 									class="text-danger"></span>
 							</div>
-
-						<div class="row">	
-							<div class="form-group col-md-8">
-								<label for="cep" class="col-form-label">CEP</label>
-								<input type="text" th:field="*{cep}" class="form-control"	id="email" placeholder="CEP"> 
-								<span th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"
-									class="text-danger"></span>
-							</div>
+	                    <div class="row">
+								<div class="form-group col-md-8">
+									<label for="senha" class="col-form-label">Senha</label> 
+									<input type="password" th:field="*{senha}" class="form-control" id="senha"
+										placeholder=""> <span
+										th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"
+										class="text-danger"></span>
+								</div>
+						</div>
+							<div class="row">
+								<div class="form-group col-md-8">
+									<label for="cep" class="col-form-label">CEP</label> <input
+										type="text" th:field="*{cep}" class="form-control" id="cep"
+										placeholder="CEP"> <span
+										th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"
+										class="text-danger"></span>
+								</div>
 							
-							<div class="form-group col-md-8">
-								<input type="submit" class="btn btn-primary" value="Cadastrar Usuario"> 
-								<input type="button" class="btn btn-primary" value="Consultar Usuario" onclick="consulta();">
-							</div>
-						
-						</div>
+								<div class="form-group col-md-8">
+									<input type="submit" class="btn btn-primary" value="Cadastrar Usuario"> 
+								    <input type="button" class="btn btn-primary" value="Consultar Usuario" onclick="consulta();">
 
+								</div>
+							</div>
 					</form>
-					 <div th:replace="fragments/alert"></div>
+
+					<div th:replace="fragments/alert"></div>
+
 				</div>
+				<form th:action="@{/logout}" method="post">
+					<input type="submit" value="Sign Out" />
+
+				</form>
 			</div>
 		</div>
 	</div>

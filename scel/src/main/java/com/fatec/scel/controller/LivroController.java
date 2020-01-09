@@ -21,8 +21,6 @@ import com.fatec.scel.model.LivroService;
 @RestController
 @RequestMapping(path = "/livros")
 public class LivroController {
-
-	
 	@Autowired
 	private LivroService service;
 

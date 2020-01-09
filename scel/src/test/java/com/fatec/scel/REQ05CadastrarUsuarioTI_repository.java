@@ -2,7 +2,7 @@ package com.fatec.scel;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import com.fatec.scel.model.UsuarioRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class REQ05CadastrarUsuario {
+public class REQ05CadastrarUsuarioTI_repository {
 
 	@Autowired
 	UsuarioRepository repository;
@@ -27,24 +27,25 @@ public class REQ05CadastrarUsuario {
 
 	@Test
 	public void CT01CadastrarUsuarioComSucesso() {
-		// dado que não existe nenhum livro cadastrado
+		// dado que não existe nenhum usuario cadastrado
 		repository.deleteAll();
-	    // quando o usuario inclui um livro valido
-		repository.save(new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","04280-130"));
-		// então - a quantidade de livros cadastrados é igual 1
+	    // quando o usuario inclui um aluno valido
+		repository.save(new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","123","04280-130"));
+		// então - a quantidade de usuarios cadastrados é igual 1
 		final List<Usuario> todos = (List<Usuario>) repository.findAll();
 		assertEquals(1, todos.size());
 		repository.deleteAll();
 	}
 	@Test
 	public void CT02CadastrarUsuarioComSucesso() {
-		// dado que não existe nenhum livro cadastrado
+		// dado que não existe nenhum usuario cadastrado
 		repository.deleteAll();
-	    // quando o usuario inclui um livro valido
-		Usuario usuario = new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","03166-000");
+	    // quando o usuario inclui um aluno valido
+		Usuario usuario = new Usuario("aaaa", "Jose da Silva", "jose@gmail.com","123","03166-000");
 		usuario.setEndereco(servico.obtemEndereco(usuario.getCep()));
-		repository.save(usuario);
-		// então - a quantidade de livros cadastrados é igual 1
+		assertNotNull(repository.save(usuario));
+		
+		// então - o endereco com base no cep é obtido dos correios
 		Usuario usuarioRO = repository.findByRa("aaaa");
 		assertThat(usuarioRO.getEndereco()).isEqualTo("Rua Taquari");
 	}

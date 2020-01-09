@@ -2,6 +2,8 @@ package com.fatec.scel.controller;
 
 import javax.validation.Valid;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,93 +14,93 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fatec.scel.model.Usuario;
-import com.fatec.scel.model.UsuarioRepository;
 import com.fatec.scel.model.UsuarioService;
 
 @RestController
 @RequestMapping(path = "/usuarios")
 public class UsuarioController {
+	 private Logger logger = LogManager.getLogger(UsuarioController.class);
+	
 	@Autowired
-	private UsuarioRepository repository;
-	@Autowired
-	private UsuarioService servico;
+	private UsuarioService service;
+
 	@GetMapping("/consulta")
 	public ModelAndView listar() {
 		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
-		modelAndView.addObject("usuarios", repository.findAll());
+		modelAndView.addObject("usuarios", service.buscarTodos());
 		return modelAndView;
 	}
+
 	@GetMapping("/cadastrar")
 	public ModelAndView cadastraUsuario(Usuario usuario) {
 		ModelAndView mv = new ModelAndView("CadastrarUsuario");
 		mv.addObject("usuario", usuario);
 		return mv;
 	}
+
 	@GetMapping("/edit/{ra}") // diz ao metodo que ira responder a uma requisicao do tipo get
 	public ModelAndView mostraFormAdd(@PathVariable("ra") String ra) {
 		ModelAndView modelAndView = new ModelAndView("AtualizaUsuario");
-		modelAndView.addObject("usuario", repository.findByRa(ra)); // o repositorio e injetado no controller
+		modelAndView.addObject("usuario", service.buscarPorRa(ra)); // o repositorio e injetado no controller
 		return modelAndView; // addObject adiciona objetos para view
 	}
+
 	@GetMapping("/delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
-		repository.deleteById(id);
+		service.excluir(id);
 		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
-		modelAndView.addObject("usuarios", repository.findAll());
+		modelAndView.addObject("usuarios", service.buscarTodos());
 		return modelAndView;
 	}
 
 	@PostMapping("/save")
 	public ModelAndView save(@Valid Usuario usuario, BindingResult result) {
-		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
+		ModelAndView mv = new ModelAndView("CadastrarUsuario");
 		if (result.hasErrors()) {
-			return new ModelAndView("CadastrarUsuario");
+			mv.addObject("fail", "Dados inválidos"); // quando fail nao eh nulo a msg aparece na tela
+			return mv;
 		}
 		try {
-			Usuario jaExiste=null;
-			jaExiste = repository.findByRa(usuario.getRa());
-			if (jaExiste == null) {
-				String endereco = servico.obtemEndereco(usuario.getCep());
-				usuario.setEndereco(endereco);
-				repository.save(usuario);
-				modelAndView = new ModelAndView("ConsultarUsuario");
-				modelAndView.addObject("usuarios", repository.findAll());
-				return modelAndView;
+			
+			Usuario umUsuario = service.salvar(usuario);
+			if (umUsuario != null) {
+				mv.addObject("success", "Usuario cadastrado com sucesso"); // quando success nao eh nulo
+				return mv;
 			} else {
-				ModelAndView mv = new ModelAndView("CadastrarUsuario");
-				mv.addObject("fail", "Erro no cadastro."); 
+				mv.addObject("fail", "Usuario já cadastrado."); // quando fail nao eh nulo a msg aparece na tela
 				return mv;
 			}
 		} catch (Exception e) {
-			modelAndView.addObject("fail", "Erro no cadastro."); 
-			return modelAndView; // captura o erro mas nao informa o motivo.
+			mv.addObject("fail", "erro usuario controller ===> " + e.getMessage() +"-" + e.toString() +"-" + e.getCause());
+			return mv;
 		}
 	}
+
 	@PostMapping("/update/{id}")
 	public ModelAndView atualiza(@PathVariable("id") Long id, @Valid Usuario usuario, BindingResult result) {
-	
+
 		if (result.hasErrors()) {
 			usuario.setId(id);
 			return new ModelAndView("AtualizaUsuario");
 		}
-		Usuario umUsuario = repository.findById(id).get();
+		Usuario umUsuario = service.findById(id);
 		umUsuario.setRa(usuario.getRa());
 		umUsuario.setNome(usuario.getNome());
 		umUsuario.setEmail(usuario.getEmail());
 		umUsuario.setCep(usuario.getCep());
 		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
 		try {
-		    String endereco = servico.obtemEndereco(usuario.getCep());
-		    umUsuario.setEndereco(endereco);
-		    repository.save(umUsuario);
-		}catch (Exception e) {
+			String endereco = service.obtemEndereco(usuario.getCep());
+			umUsuario.setEndereco(endereco);
+			service.salvar(umUsuario);
+		} catch (Exception e) {
 			ModelAndView mv = new ModelAndView("AtualizaUsuario");
-			 umUsuario.setEndereco("");
-			mv.addObject("fail", "CEP não localizado."); 
+			umUsuario.setEndereco("");
+			mv.addObject("fail", "CEP não localizado.");
 			return mv;
 		}
-		
-		modelAndView.addObject("usuarios", repository.findAll());
+
+		modelAndView.addObject("usuarios", service.buscarTodos());
 		return modelAndView;
 	}
 }
