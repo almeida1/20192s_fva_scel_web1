@@ -55,11 +55,20 @@
 									class="text-danger"></span>
 							</div>
 						</div>
+						 <div class="row">
+								<div class="form-group col-md-8">
+									<label for="senha" class="col-form-label">Senha</label> 
+									<input type="password" th:field="*{senha}" class="form-control" id="senha"
+										placeholder=""> <span
+										th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"
+										class="text-danger"></span>
+								</div>
+						</div>
 						<div class="row">
 							<div class="form-group col-md-8">
 								<label for="cep" class="col-form-label">CEP</label> <input
 									type="text" th:field="*{cep}" class="form-control" id="cep"
-									placeholder="E-mail"> <span
+									placeholder="CEP"> <span
 									th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}"
 									class="text-danger"></span>
 							</div>

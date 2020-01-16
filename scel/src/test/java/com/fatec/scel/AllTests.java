@@ -10,6 +10,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	            REQ02ConsultarLivro.class, 
 	            REQ05CadastrarUsuarioTI_repository.class,
 	            REQ05CadastrarUsuarioTI_service.class,
+	            REQ08AlterarUsuario.class,
 		        REQ09RegistrarEmprestimo.class, 
 		        ScelApplicationTests.class })
 public class AllTests {

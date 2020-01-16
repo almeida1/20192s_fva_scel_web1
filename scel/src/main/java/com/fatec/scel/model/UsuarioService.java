@@ -25,7 +25,6 @@ public class UsuarioService implements IUsuarioService{
 			String endereco = obtemEndereco(usuario.getCep());
 			usuario.setEndereco(endereco);
 			String password = usuario.getSenha();
-			if(pe == null) System.out.println("=============> nulo");
 			usuario.setSenha(pe.encode(password));
 			return usuarioRepository.save(usuario);
 		} else

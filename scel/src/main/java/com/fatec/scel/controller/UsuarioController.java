@@ -71,36 +71,42 @@ public class UsuarioController {
 				return mv;
 			}
 		} catch (Exception e) {
-			mv.addObject("fail", "erro usuario controller ===> " + e.getMessage() +"-" + e.toString() +"-" + e.getCause());
+			mv.addObject("fail", "erro usuario controller ===> " + e.getMessage());
 			return mv;
 		}
 	}
 
 	@PostMapping("/update/{id}")
 	public ModelAndView atualiza(@PathVariable("id") Long id, @Valid Usuario usuario, BindingResult result) {
-
+		ModelAndView mv = null;
 		if (result.hasErrors()) {
+			
+			System.out.println("tem erro volta para atualiza usuario");
+			mv = new ModelAndView("AtualizaUsuario");
+			mv.addObject("fail", "Dados inválidos" + result.getFieldError().toString());
 			usuario.setId(id);
-			return new ModelAndView("AtualizaUsuario");
+			return mv;
 		}
 		Usuario umUsuario = service.findById(id);
 		umUsuario.setRa(usuario.getRa());
 		umUsuario.setNome(usuario.getNome());
 		umUsuario.setEmail(usuario.getEmail());
 		umUsuario.setCep(usuario.getCep());
-		ModelAndView modelAndView = new ModelAndView("ConsultarUsuario");
+		umUsuario.setSenha(usuario.getSenha());
+		
 		try {
 			String endereco = service.obtemEndereco(usuario.getCep());
 			umUsuario.setEndereco(endereco);
 			service.salvar(umUsuario);
+			mv = new ModelAndView("ConsultarUsuario");
 		} catch (Exception e) {
-			ModelAndView mv = new ModelAndView("AtualizaUsuario");
+			mv = new ModelAndView("AtualizaUsuario");
 			umUsuario.setEndereco("");
 			mv.addObject("fail", "CEP não localizado.");
 			return mv;
 		}
 
-		modelAndView.addObject("usuarios", service.buscarTodos());
-		return modelAndView;
+		mv.addObject("usuarios", service.buscarTodos());
+		return mv;
 	}
 }

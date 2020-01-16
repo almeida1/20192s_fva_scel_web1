@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.NaturalId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fatec.scel.Perfil;
 
 @Entity
 public class Usuario {
@@ -39,7 +40,10 @@ public class Usuario {
 	
 	private String endereco;
 	
+	private int perfil;
+	
     public Usuario() {
+    	this.perfil=2;
     }
 	public Usuario(String ra, String nome, String email, String senha, String cep) {
 		
@@ -48,7 +52,7 @@ public class Usuario {
 		this.email = email;
 		this.senha = senha;
 		this.cep = cep;
-	
+	    this.perfil=2;
 	}
 	
 	public void setId(Long id) {
@@ -104,58 +108,12 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [ra=" + ra + ", nome=" + nome + ", email=" + email + "]";
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((ra == null) ? 0 : ra.hashCode());
-		return result;
+	public int getPerfil() {
+		return perfil;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (cep == null) {
-			if (other.cep != null)
-				return false;
-		} else if (!cep.equals(other.cep))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
-				return false;
-		} else if (!endereco.equals(other.endereco))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (ra == null) {
-			if (other.ra != null)
-				return false;
-		} else if (!ra.equals(other.ra))
-			return false;
-		return true;
+	
+	public void setPerfil (int p) {
+		this.perfil = p;
 	}
 
 }
